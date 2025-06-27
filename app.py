@@ -196,5 +196,3 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
 st.dataframe(df_display)
-
-st.info("これはデモダッシュボードです。 / This is a demo dashboard. (Next up: filters, charts, KPIs!)")
