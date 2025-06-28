@@ -8,13 +8,13 @@ engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
 
 st.set_page_config(page_title="NISSILI Dashboard", layout="wide")
 
+# Language selector
+lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
+
 if lang == "日本語":
     st.title("NISSILI 在庫・販売ダッシュボード")
 else:
     st.title("NISSILI Inventory & Sales Dashboard")
-
-# Language selector
-lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
 
 # Query the whole inventory table
 df = pd.read_sql('SELECT * FROM inventory', engine)
