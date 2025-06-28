@@ -53,19 +53,44 @@ else:
 
 df_display = df[display_cols].rename(columns=rename_cols)
 
-# 1. Find current needs restock
-latest = df.sort_values('Date').groupby(['Client', 'Product Name'], as_index=False).tail(1)
-restock_keys = set(
-    latest[latest['Needs Restock?'].fillna('').str.lower() == 'yes'][['Client', 'Product Name']]
-    .apply(tuple, axis=1)
-)
+if lang == "日本語":
+    with st.expander("ℹ️ ダッシュボードの使い方", expanded=False):
+        st.markdown("""
+        **NISSILI 在庫・販売ダッシュボードへようこそ！**
 
-def highlight_current_restock(row):
-    key = (row['Client'], row['Product Name'])
-    if key in restock_keys and str(row['Needs Restock?']).lower() == 'yes':
-        return ['color: red; font-weight: bold' if col == 'Needs Restock?' else '' for col in row.index]
-    else:
-        return ['' for _ in row]
+        - **言語切り替え:** 上部のボタンで日本語と英語を切り替えできます。
+        - **KPI:** 売上合計、販売数量、要補充件数、取引先数を一目で確認。
+        - **チャート:** 製品別販売数や月別トレンドがすぐに分かります。
+        - **要補充リスト:** 赤字で表示されている在庫は至急対応が必要です。
+        - **全在庫リスト:** 最新の在庫・販売データを検索・並べ替えできます。
+
+        **想定利用者:**  
+        - マネージャー、営業、物流担当者
+
+        **データ更新:**  
+        - 新しいデータがアップロードされるたび自動更新されます。
+
+        _ご不明点はデータ担当までご連絡ください。_
+        """)
+else:
+    with st.expander("ℹ️ About / How to Use This Dashboard", expanded=False):
+        st.markdown("""
+        **Welcome to the NISSILI Inventory & Sales Dashboard!**
+
+        - **Language Toggle:** Use the button above to switch between Japanese and English.
+        - **KPIs:** See total revenue, units sold, clients, and items needing restock at a glance.
+        - **Charts:** Visualize sales volume and trends to spot what’s selling and when.
+        - **Low Inventory:** Instantly see which items need urgent attention (highlighted in red).
+        - **Full Inventory Table:** Browse, sort, or search the latest inventory and sales records.
+
+        **Who is this for?**  
+        - Managers, sales staff, and logistics teams who want clear, up-to-date info with zero Excel headaches.
+
+        **How is it updated?**  
+        - Whenever new inventory or sales data is uploaded, the dashboard refreshes automatically.
+
+        _Questions or need help? Ping your data team!_
+        """)
 
 # KPI summary (English)
 if lang == "English":
