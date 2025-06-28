@@ -70,6 +70,12 @@ if lang == "日本語":
         **データ更新:**  
         - 新しいデータがアップロードされるたび自動更新されます。
 
+        **サポート・お問い合わせ:**  
+        - メール: [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
+
+        **更新履歴:**  
+        - 最終更新日: 2025年6月
+
         _ご不明点はデータ担当までご連絡ください。_
         """)
 else:
@@ -88,6 +94,12 @@ else:
 
         **How is it updated?**  
         - Whenever new inventory or sales data is uploaded, the dashboard refreshes automatically.
+
+        **Support / Contact:**  
+        - Email: [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
+
+        **Changelog:**  
+        - Last updated: June 2025
 
         _Questions or need help? Ping your data team!_
         """)
