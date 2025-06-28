@@ -8,7 +8,10 @@ engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
 
 st.set_page_config(page_title="NISSILI Dashboard", layout="wide")
 
-st.title("NISSILI 在庫・販売ダッシュボード / Inventory & Sales Dashboard")
+if lang == "日本語":
+    st.title("NISSILI 在庫・販売ダッシュボード")
+else:
+    st.title("NISSILI Inventory & Sales Dashboard")
 
 # Language selector
 lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
@@ -194,5 +197,12 @@ st.divider()
 
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
+
+if lang == "日本語":
+    st.subheader("📋 全在庫リスト")
+    st.caption("すべての取引、商品、在庫データを表示しています。")
+else:
+    st.subheader("📋 Full Inventory List")
+    st.caption("Displays all transaction, product, and stock data.")
 
 st.dataframe(df_display)
