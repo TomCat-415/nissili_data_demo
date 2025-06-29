@@ -234,9 +234,9 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # --- Monthly Sales Trend (Line Chart) ---
 if lang == "English":
-    df['Date'] = pd.to_datetime(df['Date'])
-    df['Month'] = df['Date'].dt.to_period('M').astype(str)
-    monthly_sales = df.groupby('Month', as_index=False)['Units Sold'].sum()
+    df_filtered['Date'] = pd.to_datetime(df_filtered['Date'])
+    df_filtered['Month'] = df_filtered['Date'].dt.to_period('M').astype(str)
+    monthly_sales = df_filtered.groupby('Month', as_index=False)['Units Sold'].sum()
     st.divider()
     st.subheader("📈 Monthly Sales Trend")
     fig_month = px.line(
@@ -249,9 +249,9 @@ if lang == "English":
     fig_month.update_traces(line=dict(width=3), marker=dict(size=8))
     st.plotly_chart(fig_month, use_container_width=True)
 else:
-    df['日付'] = pd.to_datetime(df['日付'], format="%Y年%m月%d日")
-    df['月'] = df['日付'].dt.to_period('M').astype(str)
-    monthly_sales_jp = df.groupby('月', as_index=False)['販売数量'].sum()
+    df_filtered['日付'] = pd.to_datetime(df_filtered['日付'], format="%Y年%m月%d日")
+    df_filtered['月'] = df_filtered['日付'].dt.to_period('M').astype(str)
+    monthly_sales_jp = df_filtered.groupby('月', as_index=False)['販売数量'].sum()
     st.divider()
     st.subheader("📈 月別販売数量の推移")
     fig_month_jp = px.line(
@@ -274,19 +274,17 @@ def highlight_low_stock(s):
     return ['color: red; font-weight: bold;' if col == 'Current Stock' else '' for col in s.index]
 
 if lang == "English":
-    low_stock_now = latest[latest['Needs Restock?'].fillna('').str.lower() == 'yes']
+    latest_filtered = df_filtered.sort_values('Date').groupby(['Client', 'Product Name'], as_index=False).tail(1)
+    low_stock_now = latest_filtered[latest_filtered['Needs Restock?'].fillna('').str.lower() == 'yes']
     st.subheader("⚠️ Current Low Inventory List")
     styled_low = low_stock_now[['Client', 'Product Name', 'Current Stock', 'Reorder Level']].style.apply(
         lambda x: ['color: red; font-weight: bold;' if x.name == 'Current Stock' else '' for _ in x], subset=['Current Stock']
     )
     st.dataframe(styled_low, use_container_width=True, hide_index=True)
 
-def highlight_low_stock_jp(s):
-    # Color the 現在庫 column red, leave others alone
-    return ['color: red; font-weight: bold;' if col == '現在庫' else '' for col in s.index]
-
-if lang == "日本語":
-    low_stock_now_jp = latest_jp[latest_jp['要補充'].fillna('').str.lower() == 'yes']
+elif lang == "日本語":
+    latest_filtered_jp = df_filtered.sort_values('日付').groupby(['顧客', '製品名'], as_index=False).tail(1)
+    low_stock_now_jp = latest_filtered_jp[latest_filtered_jp['要補充'].fillna('').str.lower() == 'yes']
     st.subheader("⚠️ 現在の低在庫リスト")
     styled_low_jp = low_stock_now_jp[['顧客', '製品名', '現在庫', '発注点']].style.apply(
         lambda x: ['color: red; font-weight: bold;' if x.name == '現在庫' else '' for _ in x], subset=['現在庫']
@@ -297,12 +295,17 @@ st.divider()
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
-# --- Full Inventory Table (All Data) ---
+# --- Full Inventory Table (Filtered) ---
 if lang == "日本語":
-    st.subheader("📋 全在庫リスト")
-    st.caption("すべての取引、商品、在庫データを表示しています。")
+    st.subheader("📋 フィルター適用中の在庫リスト")
+    st.caption("現在の条件で絞り込まれた取引、商品、在庫データを表示しています。")
 else:
-    st.subheader("📋 Full Inventory List")
-    st.caption("Displays all transaction, product, and stock data.")
+    st.subheader("📋 Filtered Inventory List")
+    st.caption("Shows transaction, product, and stock data based on active filters.")
 
-st.dataframe(df_display)
+st.dataframe(df_display_filtered, use_container_width=True)
+
+# --- All Data (Unfiltered) in Expander ---
+with st.expander("全在庫データ（フィルターなし）" if lang == "日本語" else "Show All Inventory Data (Unfiltered)"):
+    st.caption("すべての取引、商品、在庫データを表示します。" if lang == "日本語" else "Displays all transaction, product, and stock data (no filters).")
+    st.dataframe(df_display, use_container_width=True)
