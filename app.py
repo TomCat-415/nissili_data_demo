@@ -6,6 +6,7 @@ import plotly.express as px
 from PIL import Image
 import base64
 from io import BytesIO
+import io
 
 # --- Database Connection ---
 # Set up connection to SQLite database containing inventory/sales data
@@ -309,6 +310,20 @@ else:
     st.caption("Shows transaction, product, and stock data based on active filters.")
 
 st.dataframe(df_display_filtered, use_container_width=True)
+
+# --- Excel Export ---
+excel_buffer = io.BytesIO()
+df_display_filtered.to_excel(excel_buffer, index=False, engine='openpyxl')
+excel_buffer.seek(0)
+
+excel_label = "📥 Excel形式でダウンロード" if lang == "日本語" else "📥 Download as Excel"
+
+st.download_button(
+    label=excel_label,
+    data=excel_buffer,
+    file_name="filtered_inventory.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
 
 # --- All Data (Unfiltered) in Expander ---
 with st.expander("全在庫データ（フィルターなし）" if lang == "日本語" else "Show All Inventory Data (Unfiltered)"):
