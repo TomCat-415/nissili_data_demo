@@ -35,29 +35,26 @@ def image_to_base64(img):
 
 logo = Image.open("nissili-logo.PNG")
 logo_base64 = image_to_base64(logo)
-col_logo, col_title = st.columns([1, 5])
-with col_logo:
-    st.markdown(
-        f"<div style='display: flex; align-items: center; height: 100%;'><img src='data:image/png;base64,{logo_base64}' width='220'/></div>",
-        unsafe_allow_html=True
-    )
-with col_title:
-    if lang == "日本語":
-        st.markdown(
-            "<div style='display: flex; flex-direction: column; justify-content: center; height: 100%;'>"
-            "<span style='font-size:2.3rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>"
-            "<span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>"
-            "</div>",
-            unsafe_allow_html=True
-        )
-    else:
-        st.markdown(
-            "<div style='display: flex; flex-direction: column; justify-content: center; height: 100%;'>"
-            "<span style='font-size:2.3rem; font-weight:800;'>Inventory & Sales Dashboard</span><br>"
-            "<span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>"
-            "</div>",
-            unsafe_allow_html=True
-        )
+if lang == "日本語":
+    header_text = """
+        <span style='font-size:2.8rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>
+        <span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>
+    """
+else:
+    header_text = """
+        <span style='font-size:2.8rem; font-weight:800;'>Inventory & Sales Dashboard</span><br>
+        <span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>
+    """
+
+st.markdown(
+    f"""
+    <div style='display: flex; align-items: flex-end; gap: 2rem; margin-bottom: 1.5rem;'>
+        <img src='data:image/png;base64,{logo_base64}' width='220' style='margin-bottom:-16px;'/>
+        <div>{header_text}</div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Query the whole inventory table
 df = pd.read_sql('SELECT * FROM inventory', engine)
