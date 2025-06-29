@@ -18,12 +18,11 @@ lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
 st.markdown("""
     <style>
     html, body, [class*="css"]  {
-        font-family: 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
         color: #222;
-        background: #fff; /* or #181b20 for dark */
+        background: #181b20;  /* or #fff for light mode */
     }
-    .accent { color: #38a1db !important; }
-    .section-header { font-size: 1.35rem; color: #38a1db; font-weight: 700; }
     </style>
 """, unsafe_allow_html=True)
 
