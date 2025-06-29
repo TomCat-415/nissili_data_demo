@@ -48,8 +48,8 @@ else:
 
 st.markdown(
     f"""
-    <div style='display: flex; align-items: flex-end; gap: 2rem; margin-bottom: 1.5rem;'>
-        <img src='data:image/png;base64,{logo_base64}' width='220' style='margin-bottom:-20px;'/>
+    <div style='display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem;'>
+        <img src='data:image/png;base64,{logo_base64}' width='220' style='margin-top:-8px;'/>
         <div>{header_text}</div>
     </div>
     """,
