@@ -187,7 +187,7 @@ else:
     if selected_month != "All":
         df_filtered = df_filtered[df_filtered['Date'].astype(str).str[:7] == selected_month]
 
-        # >>> ADD THIS LINE HERE! <<<
+# --- Map filtered DataFrame to display columns with correct language/labels for the UI ---
 df_display_filtered = df_filtered[display_cols].rename(columns=rename_cols)
 
 # --- KPI Metrics (Summary Numbers at a Glance) ---
