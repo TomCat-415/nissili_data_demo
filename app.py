@@ -46,7 +46,7 @@ else:
 st.markdown(
     f"""
     <div style='text-align:center; margin-bottom:2.5rem;'>
-        <img src='data:image/png;base64,{logo_base64}' width='160' style='margin-bottom:1.3rem;'/>
+        <img src='data:image/png;base64,{logo_base64}' width='240' style='margin-bottom:1.3rem;'/>
         <div>{header_title}{header_subtitle}</div>
     </div>
     """,
