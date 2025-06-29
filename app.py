@@ -8,6 +8,10 @@ engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
 
 st.set_page_config(page_title="NISSILI Dashboard", layout="wide")
 
+# Load and display logo
+logo = Image.open("nissili-logo.PNG")
+st.image(logo, width=170)  # adjust width as you like
+
 # Language selector
 lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
 
