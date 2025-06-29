@@ -185,6 +185,9 @@ else:
     if selected_month != "All":
         df_filtered = df_filtered[df_filtered['Date'].astype(str).str[:7] == selected_month]
 
+        # >>> ADD THIS LINE HERE! <<<
+df_display_filtered = df_filtered[display_cols].rename(columns=rename_cols)
+
 # --- KPI Metrics (Summary Numbers at a Glance) ---
 if lang == "English":
     latest = df_filtered.sort_values('Date').groupby(['Client', 'Product Name'], as_index=False).tail(1)
