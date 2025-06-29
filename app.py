@@ -37,23 +37,17 @@ logo_base64 = image_to_base64(logo)
 
 # --- Mobile-friendly stacked logo + JP/EN title section ---
 if lang == "日本語":
-    header_text = """
-        <span style='font-size:2.3rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>
-        <span style='font-size:1.1rem; color:#888;'>最新の在庫と販売データを一目で確認</span>
-    """
+    header_title = "<span style='font-size:2.3rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>"
+    header_subtitle = "<span style='font-size:1.1rem; color:#888;'>最新の在庫と販売データを一目で確認</span>"
 else:
-    header_text = """
-        <span style='font-size:2.3rem; font-weight:800;'>Inventory & Sales Dashboard</span><br>
-        <span style='font-size:1.1rem; color:#888;'>See the latest inventory and sales data at a glance</span>
-    """
+    header_title = "<span style='font-size:2.3rem; font-weight:800;'>Inventory & Sales Dashboard</span><br>"
+    header_subtitle = "<span style='font-size:1.1rem; color:#888;'>See the latest inventory and sales data at a glance</span>"
 
 st.markdown(
     f"""
-    <div style='display: flex; flex-direction: column; align-items: center; margin-bottom:2.2rem;'>
-        <img src='data:image/png;base64,{logo_base64}' width='150' style='max-width:30vw; min-width:90px; margin-bottom: 0.5rem;'/>
-        <div style='text-align: center; max-width: 100%;'>
-            {header_text}
-        </div>
+    <div style='text-align:center; margin-bottom:2.5rem;'>
+        <img src='data:image/png;base64,{logo_base64}' width='160' style='margin-bottom:1.3rem;'/>
+        <div>{header_title}{header_subtitle}</div>
     </div>
     """,
     unsafe_allow_html=True
