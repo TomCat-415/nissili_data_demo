@@ -38,7 +38,7 @@ logo_base64 = image_to_base64(logo)
 col_logo, col_title = st.columns([1, 5])
 with col_logo:
     st.markdown(
-        f"<div style='display: flex; align-items: center; height: 100%;'><img src='data:image/png;base64,{logo_base64}' width='140'/></div>",
+        f"<div style='display: flex; align-items: center; height: 100%;'><img src='data:image/png;base64,{logo_base64}' width='220'/></div>",
         unsafe_allow_html=True
     )
 with col_title:
