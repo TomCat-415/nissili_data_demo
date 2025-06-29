@@ -3,6 +3,8 @@ import pandas as pd
 from sqlalchemy import create_engine
 import plotly.express as px
 from PIL import Image
+import base64
+from io import BytesIO
 
 # Connect to your SQLite database
 engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
@@ -25,22 +27,35 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Header Banner ---
+def image_to_base64(img):
+    buf = BytesIO()
+    img.save(buf, format="PNG")
+    byte_im = buf.getvalue()
+    return base64.b64encode(byte_im).decode("utf-8")
+
 logo = Image.open("nissili-logo.PNG")
+logo_base64 = image_to_base64(logo)
 col_logo, col_title = st.columns([1, 5])
 with col_logo:
-    st.image(logo, width=220)
+    st.markdown(
+        f"<div style='display: flex; align-items: center; height: 100%;'><img src='data:image/png;base64,{logo_base64}' width='140'/></div>",
+        unsafe_allow_html=True
+    )
 with col_title:
     if lang == "日本語":
         st.markdown(
-            "<span style='font-size:2.3rem; font-weight:800;'>NISSILI 在庫・販売ダッシュボード</span><br>"
-            "<span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>",
+            "<div style='display: flex; flex-direction: column; justify-content: center; height: 100%;'>"
+            "<span style='font-size:2.3rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>"
+            "<span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>"
+            "</div>",
             unsafe_allow_html=True
         )
     else:
         st.markdown(
-            "<span style='font-size:2.3rem; font-weight:800;'>NISSILI Inventory & Sales Dashboard</span><br>"
-            "<span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>",
+            "<div style='display: flex; flex-direction: column; justify-content: center; height: 100%;'>"
+            "<span style='font-size:2.3rem; font-weight:800;'>Inventory & Sales Dashboard</span><br>"
+            "<span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>"
+            "</div>",
             unsafe_allow_html=True
         )
 
