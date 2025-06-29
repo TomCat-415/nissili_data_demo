@@ -32,24 +32,22 @@ def image_to_base64(img):
     byte_im = buf.getvalue()
     return base64.b64encode(byte_im).decode("utf-8")
 
-logo = Image.open("nissili-logo.PNG")
-logo_base64 = image_to_base64(logo)
+# --- Mobile-friendly stacked logo + JP/EN title section ---
+header_logo = f"<img src='data:image/png;base64,{logo_base64}' width='160' style='margin-bottom:1.3rem;'/>"
+
 if lang == "日本語":
-    header_text = """
-        <span style='font-size:2.8rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>
-        <span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>
-    """
+    header_title = "<div style='font-size:2.3rem; font-weight:800; margin-bottom: 0.5rem;'>在庫・販売ダッシュボード</div>"
+    header_subtitle = "<div style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</div>"
 else:
-    header_text = """
-        <span style='font-size:2.8rem; font-weight:800;'>Inventory & Sales Dashboard</span><br>
-        <span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>
-    """
+    header_title = "<div style='font-size:2.3rem; font-weight:800; margin-bottom: 0.5rem;'>Inventory & Sales Dashboard</div>"
+    header_subtitle = "<div style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</div>"
 
 st.markdown(
     f"""
-    <div style='display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem;'>
-        <img src='data:image/png;base64,{logo_base64}' width='220' style='margin-top:-8px;'/>
-        <div>{header_text}</div>
+    <div style='text-align:center; margin-bottom:2.5rem;'>
+        {header_logo}
+        {header_title}
+        {header_subtitle}
     </div>
     """,
     unsafe_allow_html=True
