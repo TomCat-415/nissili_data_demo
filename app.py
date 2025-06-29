@@ -32,6 +32,9 @@ def image_to_base64(img):
     byte_im = buf.getvalue()
     return base64.b64encode(byte_im).decode("utf-8")
 
+logo = Image.open("nissili-logo.PNG")
+logo_base64 = image_to_base64(logo)
+
 # --- Mobile-friendly stacked logo + JP/EN title section ---
 header_logo = f"<img src='data:image/png;base64,{logo_base64}' width='160' style='margin-bottom:1.3rem;'/>"
 
