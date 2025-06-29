@@ -158,14 +158,16 @@ else:
     months = ["All"] + sorted(df['Date'].dropna().astype(str).str[:7].unique().tolist())  # "YYYY-MM"
 
     # --- Add filter widgets ---
-if lang == "日本語":
-    selected_client = st.selectbox("顧客で絞り込み", clients)
-    selected_product = st.selectbox("製品名で絞り込み", products)
-    selected_month = st.selectbox("月で絞り込み", months)
-else:
-    selected_client = st.selectbox("Filter by Client", clients)
-    selected_product = st.selectbox("Filter by Product", products)
-    selected_month = st.selectbox("Filter by Month (YYYY-MM)", months)
+with st.sidebar:
+    st.header("🔎 Filter Data" if lang == "English" else "🔎 データ絞り込み")
+    if lang == "日本語":
+        selected_client = st.selectbox("顧客で絞り込み", clients)
+        selected_product = st.selectbox("製品名で絞り込み", products)
+        selected_month = st.selectbox("月で絞り込み", months)
+    else:
+        selected_client = st.selectbox("Filter by Client", clients)
+        selected_product = st.selectbox("Filter by Product", products)
+        selected_month = st.selectbox("Filter by Month (YYYY-MM)", months)
 
     # --- Filter DataFrame based on selection ---
 df_filtered = df.copy()
