@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
 import plotly.express as px
+from PIL import Image
 
 # Connect to your SQLite database
 engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
