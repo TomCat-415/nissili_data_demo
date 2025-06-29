@@ -35,27 +35,22 @@ st.markdown("""
 
 # --- Header layout ---
 logo = Image.open("nissili-logo.PNG")
-col_logo, col_title = st.columns([1, 7])
+col_logo, col_title = st.columns([1, 5])
 with col_logo:
-    st.image(logo, width=90)
+    st.image(logo, width=220)  # wider is fine!
 with col_title:
     if lang == "日本語":
-        st.markdown("""
-            <span style='font-size:2.3rem; font-weight:800;'>NISSILI 在庫・販売ダッシュボード</span><br>
-            <span style='font-size:1.2rem; color:#888;'>Inventory & Sales Dashboard</span>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            "<span style='font-size:2.3rem; font-weight:800;'>NISSILI 在庫・販売ダッシュボード</span><br>"
+            "<span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>",
+            unsafe_allow_html=True)
     else:
-        st.markdown("""
-            <span style='font-size:2.3rem; font-weight:800;'>NISSILI Inventory & Sales Dashboard</span><br>
-            <span style='font-size:1.2rem; color:#888;'>在庫・販売ダッシュボード</span>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            "<span style='font-size:2.3rem; font-weight:800;'>NISSILI Inventory & Sales Dashboard</span><br>"
+            "<span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>",
+            unsafe_allow_html=True)
 
 st.divider()
-
-if lang == "日本語":
-    st.title("NISSILI 在庫・販売ダッシュボード")
-else:
-    st.title("NISSILI Inventory & Sales Dashboard")
 
 # Query the whole inventory table
 df = pd.read_sql('SELECT * FROM inventory', engine)
