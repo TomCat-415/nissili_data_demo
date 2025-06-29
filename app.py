@@ -1,3 +1,4 @@
+# --- Imports ---
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
@@ -6,15 +7,17 @@ from PIL import Image
 import base64
 from io import BytesIO
 
-# Connect to your SQLite database
+# --- Database Connection ---
+# Set up connection to SQLite database containing inventory/sales data
 engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
 
+# --- Streamlit Page Config ---
 st.set_page_config(page_title="NISSILI Dashboard", layout="wide")
 
-# Language selector (keep at the very top)
+# --- Language Selector (JP/EN toggle at very top) ---
 lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
 
-# --- Apple-like font/style ---
+# --- Global Font & Style (Apple-inspired) ---
 st.markdown("""
     <style>
     html, body, [class*="css"]  {
@@ -26,16 +29,18 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# --- Image Utility: Convert Logo to Base64 for HTML Embedding ---
 def image_to_base64(img):
     buf = BytesIO()
     img.save(buf, format="PNG")
     byte_im = buf.getvalue()
     return base64.b64encode(byte_im).decode("utf-8")
 
+# --- Load and Prepare Logo Image ---
 logo = Image.open("nissili-logo.PNG")
 logo_base64 = image_to_base64(logo)
 
-# --- Mobile-friendly stacked logo + JP/EN title section ---
+# --- Mobile-Friendly Logo + Title Section (JP/EN toggle) ---
 if lang == "日本語":
     header_title = "<span style='font-size:2.3rem; font-weight:800;'>在庫・販売ダッシュボード</span><br>"
     header_subtitle = "<span style='font-size:1.1rem; color:#888;'>最新の在庫と販売データを一目で確認</span>"
@@ -53,10 +58,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Query the whole inventory table
+# --- Load Data From Database ---
 df = pd.read_sql('SELECT * FROM inventory', engine)
 
-# Choose columns to display based on language
+# --- Language-Based Column Mapping ---
+# Display different columns/labels based on JP or EN
 if lang == "日本語":
     display_cols = ['日付', '顧客', '地域', '製品名', '販売数量', '単価（円）', '売上（円）', '現在庫', '要補充', '発注点', '最終補充日']
     rename_cols = {
@@ -87,9 +93,9 @@ else:
         'Reorder Level': 'Reorder Level',
         'Last Restock Date': 'Last Restock Date'
     }
-
 df_display = df[display_cols].rename(columns=rename_cols)
 
+# --- About / How To Use (Expandable Info Block) ---
 if lang == "日本語":
     with st.expander("ℹ️ ダッシュボードの使い方", expanded=False):
         st.markdown("""
@@ -141,7 +147,7 @@ else:
         _Questions or need help? Ping your data team!_
         """)
 
-# KPI summary (English)
+# --- KPI Metrics (Summary Numbers at a Glance) ---
 if lang == "English":
     latest = df.sort_values('Date').groupby(['Client', 'Product Name'], as_index=False).tail(1)
     needs_restock_now = latest['Needs Restock?'].fillna('').str.lower().eq('yes').sum()
@@ -161,7 +167,7 @@ else:
 
 st.divider()
 
-# Decide which columns to use based on language
+# --- Sales by Product Bar Chart ---
 if lang == "English":
     sales_by_product = df.groupby('Product Name', as_index=False)['Units Sold'].sum()
     sales_col = 'Units Sold'
@@ -173,7 +179,6 @@ else:
     product_col = '製品名'
     chart_title = "製品別販売数量"
 
-# Create bar chart
 fig = px.bar(
     sales_by_product,
     x=product_col,
@@ -181,29 +186,21 @@ fig = px.bar(
     text=sales_col,
     title=chart_title
 )
-
 max_y = sales_by_product[sales_col].max()
 fig.update_yaxes(range=[0, max_y * 1.15])
 fig.update_traces(textposition='outside')
-
 st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
-# --- Monthly Sales Trend Chart ---
-
+# --- Monthly Sales Trend (Line Chart) ---
 if lang == "English":
-    # Prepare data
     df['Date'] = pd.to_datetime(df['Date'])
     df['Month'] = df['Date'].dt.to_period('M').astype(str)
     monthly_sales = df.groupby('Month', as_index=False)['Units Sold'].sum()
-    
-    # Header & divider
     st.divider()
     st.subheader("📈 Monthly Sales Trend")
-    
-    # Plot
     fig_month = px.line(
         monthly_sales,
         x="Month",
@@ -213,18 +210,12 @@ if lang == "English":
     )
     fig_month.update_traces(line=dict(width=3), marker=dict(size=8))
     st.plotly_chart(fig_month, use_container_width=True)
-
 else:
-    # Prepare data
     df['日付'] = pd.to_datetime(df['日付'], format="%Y年%m月%d日")
     df['月'] = df['日付'].dt.to_period('M').astype(str)
     monthly_sales_jp = df.groupby('月', as_index=False)['販売数量'].sum()
-    
-    # Header & divider
     st.divider()
     st.subheader("📈 月別販売数量の推移")
-    
-    # Plot
     fig_month_jp = px.line(
         monthly_sales_jp,
         x="月",
@@ -236,18 +227,15 @@ else:
     st.plotly_chart(fig_month_jp, use_container_width=True)
 
 st.divider()
-
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
-
-# 2. Low Inventory List (Current)
+# --- Current Low Inventory List (Highlights Red) ---
 def highlight_low_stock(s):
     # Color the Current Stock column red, leave others alone
     return ['color: red; font-weight: bold;' if col == 'Current Stock' else '' for col in s.index]
 
 if lang == "English":
-    # Already have latest from earlier KPI code
     low_stock_now = latest[latest['Needs Restock?'].fillna('').str.lower() == 'yes']
     st.subheader("⚠️ Current Low Inventory List")
     styled_low = low_stock_now[['Client', 'Product Name', 'Current Stock', 'Reorder Level']].style.apply(
@@ -268,10 +256,10 @@ if lang == "日本語":
     st.dataframe(styled_low_jp, use_container_width=True, hide_index=True)
 
 st.divider()
-
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
+# --- Full Inventory Table (All Data) ---
 if lang == "日本語":
     st.subheader("📋 全在庫リスト")
     st.caption("すべての取引、商品、在庫データを表示しています。")
