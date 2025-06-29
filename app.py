@@ -147,21 +147,59 @@ else:
         _Questions or need help? Ping your data team!_
         """)
 
+        # --- Get unique values for filters ---
+if lang == "日本語":
+    clients = ["すべて"] + sorted(df['顧客'].dropna().unique().tolist())
+    products = ["すべて"] + sorted(df['製品名'].dropna().unique().tolist())
+    months = ["すべて"] + sorted(df['日付'].dropna().astype(str).str[:7].unique().tolist())  # "YYYY-MM"
+else:
+    clients = ["All"] + sorted(df['Client'].dropna().unique().tolist())
+    products = ["All"] + sorted(df['Product Name'].dropna().unique().tolist())
+    months = ["All"] + sorted(df['Date'].dropna().astype(str).str[:7].unique().tolist())  # "YYYY-MM"
+
+    # --- Add filter widgets ---
+if lang == "日本語":
+    selected_client = st.selectbox("顧客で絞り込み", clients)
+    selected_product = st.selectbox("製品名で絞り込み", products)
+    selected_month = st.selectbox("月で絞り込み", months)
+else:
+    selected_client = st.selectbox("Filter by Client", clients)
+    selected_product = st.selectbox("Filter by Product", products)
+    selected_month = st.selectbox("Filter by Month (YYYY-MM)", months)
+
+    # --- Filter DataFrame based on selection ---
+df_filtered = df.copy()
+
+if lang == "日本語":
+    if selected_client != "すべて":
+        df_filtered = df_filtered[df_filtered['顧客'] == selected_client]
+    if selected_product != "すべて":
+        df_filtered = df_filtered[df_filtered['製品名'] == selected_product]
+    if selected_month != "すべて":
+        df_filtered = df_filtered[df_filtered['日付'].astype(str).str[:7] == selected_month]
+else:
+    if selected_client != "All":
+        df_filtered = df_filtered[df_filtered['Client'] == selected_client]
+    if selected_product != "All":
+        df_filtered = df_filtered[df_filtered['Product Name'] == selected_product]
+    if selected_month != "All":
+        df_filtered = df_filtered[df_filtered['Date'].astype(str).str[:7] == selected_month]
+
 # --- KPI Metrics (Summary Numbers at a Glance) ---
 if lang == "English":
-    latest = df.sort_values('Date').groupby(['Client', 'Product Name'], as_index=False).tail(1)
+    latest = df_filtered.sort_values('Date').groupby(['Client', 'Product Name'], as_index=False).tail(1)
     needs_restock_now = latest['Needs Restock?'].fillna('').str.lower().eq('yes').sum()
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("💰 Total Revenue (¥)", f"{df['Revenue (¥)'].sum():,}")
-    col2.metric("📦 Total Units Sold", f"{df['Units Sold'].sum():,}")
+    col1.metric("💰 Total Revenue (¥)", f"{df_filtered['Revenue (¥)'].sum():,}")
+    col2.metric("📦 Total Units Sold", f"{df_filtered['Units Sold'].sum():,}")
     col3.metric("⚠️ Items Needing Restock", int(needs_restock_now))
     col4.metric("👥 Unique Clients", df['Client'].nunique())
 else:
-    latest_jp = df.sort_values('日付').groupby(['顧客', '製品名'], as_index=False).tail(1)
+    latest_jp = df_filtered.sort_values('日付').groupby(['顧客', '製品名'], as_index=False).tail(1)
     needs_restock_now_jp = latest_jp['要補充'].fillna('').str.lower().eq('yes').sum()
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("💰 売上合計", f"{df['売上（円）'].sum():,} 円")
-    col2.metric("📦 販売数量合計", f"{df['販売数量'].sum():,}")
+    col1.metric("💰 売上合計", f"{df_filtered['売上（円）'].sum():,} 円")
+    col2.metric("📦 販売数量合計", f"{df_filtered['販売数量'].sum():,}")
     col3.metric("⚠️ 要補充件数", int(needs_restock_now_jp))
     col4.metric("👥 取引先数", df['顧客'].nunique())
 
