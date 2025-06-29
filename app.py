@@ -207,12 +207,12 @@ st.divider()
 
 # --- Sales by Product Bar Chart ---
 if lang == "English":
-    sales_by_product = df.groupby('Product Name', as_index=False)['Units Sold'].sum()
+    sales_by_product = df_filtered.groupby('Product Name', as_index=False)['Units Sold'].sum()
     sales_col = 'Units Sold'
     product_col = 'Product Name'
     chart_title = "Sales Volume by Product"
 else:
-    sales_by_product = df.groupby('製品名', as_index=False)['販売数量'].sum()
+    sales_by_product = df_filtered.groupby('製品名', as_index=False)['販売数量'].sum()
     sales_col = '販売数量'
     product_col = '製品名'
     chart_title = "製品別販売数量"
