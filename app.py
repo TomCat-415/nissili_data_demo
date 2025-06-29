@@ -309,14 +309,14 @@ else:
     st.subheader("📋 Filtered Inventory List")
     st.caption("Shows transaction, product, and stock data based on active filters.")
 
+# Show the filtered table
 st.dataframe(df_display_filtered, use_container_width=True)
 
-# --- Excel Export ---
+# Download filtered table as Excel
 excel_buffer = io.BytesIO()
 df_display_filtered.to_excel(excel_buffer, index=False, engine='openpyxl')
 excel_buffer.seek(0)
-
-excel_label = "📥 Excel形式でダウンロード" if lang == "日本語" else "📥 Download as Excel"
+excel_label = "📥 Excel形式でダウンロード (フィルター適用データ)" if lang == "日本語" else "📥 Download Filtered Data as Excel"
 
 st.download_button(
     label=excel_label,
