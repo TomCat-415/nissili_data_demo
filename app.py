@@ -59,8 +59,6 @@ with col_title:
             unsafe_allow_html=True
         )
 
-st.divider()
-
 # Query the whole inventory table
 df = pd.read_sql('SELECT * FROM inventory', engine)
 
