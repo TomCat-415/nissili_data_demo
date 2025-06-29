@@ -9,46 +9,40 @@ engine = create_engine('sqlite:///nissili_bilingual_inventory.db')
 
 st.set_page_config(page_title="NISSILI Dashboard", layout="wide")
 
-# Language selector
+# Language selector (keep at the very top)
 lang = st.radio("言語 / Language", ["日本語", "English"], horizontal=True)
 
-# --- Custom Apple-like style ---
+# --- Apple-like font/style ---
 st.markdown("""
     <style>
     html, body, [class*="css"]  {
         font-family: 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         color: #222;
-        background: #fff; /* Or #181b20 for dark mode */
+        background: #fff; /* or #181b20 for dark */
     }
-    .accent {
-        color: #38a1db !important; /* Sky blue accent */
-    }
-    .section-header {
-        font-size: 1.35rem;
-        margin-top: 2em;
-        margin-bottom: 0.5em;
-        color: #38a1db;
-        font-weight: 700;
-    }
+    .accent { color: #38a1db !important; }
+    .section-header { font-size: 1.35rem; color: #38a1db; font-weight: 700; }
     </style>
 """, unsafe_allow_html=True)
 
-# --- Header layout ---
+# --- Header Banner ---
 logo = Image.open("nissili-logo.PNG")
 col_logo, col_title = st.columns([1, 5])
 with col_logo:
-    st.image(logo, width=220)  # wider is fine!
+    st.image(logo, width=220)
 with col_title:
     if lang == "日本語":
         st.markdown(
             "<span style='font-size:2.3rem; font-weight:800;'>NISSILI 在庫・販売ダッシュボード</span><br>"
             "<span style='font-size:1.2rem; color:#888;'>最新の在庫と販売データを一目で確認</span>",
-            unsafe_allow_html=True)
+            unsafe_allow_html=True
+        )
     else:
         st.markdown(
             "<span style='font-size:2.3rem; font-weight:800;'>NISSILI Inventory & Sales Dashboard</span><br>"
             "<span style='font-size:1.2rem; color:#888;'>See the latest inventory and sales data at a glance</span>",
-            unsafe_allow_html=True)
+            unsafe_allow_html=True
+        )
 
 st.divider()
 
