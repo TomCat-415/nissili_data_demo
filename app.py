@@ -60,20 +60,17 @@ st.markdown(
 )
 
 # --- Load Data From Database ---
-# df = pd.read_sql('SELECT * FROM inventory', engine)
+df = pd.read_sql('SELECT * FROM inventory', engine)
 
-# --- Load Data From Upload or Fallback to Database ---
-uploaded_file = st.sidebar.file_uploader("📁 Or Upload a CSV to override database", type=["csv"])
-
+# Optional CSV upload: add new rows to existing database data
+uploaded_file = st.sidebar.file_uploader("📁 Upload new inventory CSV (adds to existing)", type=["csv"])
 if uploaded_file is not None:
     try:
-        df = pd.read_csv(uploaded_file)
-        st.success("CSV uploaded and used instead of DB")
+        df_new = pd.read_csv(uploaded_file)
+        df = pd.concat([df, df_new], ignore_index=True)
+        st.success("CSV uploaded and data added to dashboard.")
     except Exception as e:
-        st.error(f"CSV Error: {e}")
-        st.stop()
-else:
-    df = pd.read_sql('SELECT * FROM inventory', engine)
+        st.error(f"CSV Upload Error: {e}")
 
 # --- Language-Based Column Mapping ---
 # Display different columns/labels based on JP or EN
