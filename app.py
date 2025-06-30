@@ -77,10 +77,19 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"CSV Upload Error: {e}")
 
-# ✅ Restock logic: always run after full df is built
+# Clean column names
+df.columns = df.columns.str.strip()
+
+# Show current columns for debugging
+# st.write("Current Columns:", df.columns.tolist())
+
+# ✅ Restock logic
 if 'Needs Restock?' not in df.columns:
-    df['Needs Restock?'] = df['Current Stock'] < df['Reorder Level']
-    df['Needs Restock?'] = df['Needs Restock?'].apply(lambda x: 'Yes' if x else 'No')
+    if 'Current Stock' in df.columns and 'Reorder Level' in df.columns:
+        df['Needs Restock?'] = df['Current Stock'] < df['Reorder Level']
+        df['Needs Restock?'] = df['Needs Restock?'].apply(lambda x: 'Yes' if x else 'No')
+    else:
+        st.error("Required columns 'Current Stock' and/or 'Reorder Level' not found.")
 
 # --- Language-Based Column Mapping ---
 # Display different columns/labels based on JP or EN
