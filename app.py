@@ -72,7 +72,13 @@ uploaded_file = st.sidebar.file_uploader(upload_label, type=["csv"])
 if uploaded_file is not None:
     try:
         df_new = pd.read_csv(uploaded_file)
+
+        # Force numerical conversion before concat
+        df_new['Current Stock'] = pd.to_numeric(df_new['Current Stock'], errors='coerce')
+        df_new['Reorder Level'] = pd.to_numeric(df_new['Reorder Level'], errors='coerce')
+
         df = pd.concat([df, df_new], ignore_index=True)
+
         st.success("CSV uploaded and data added to dashboard.")
     except Exception as e:
         st.error(f"CSV Upload Error: {e}")
@@ -80,8 +86,11 @@ if uploaded_file is not None:
 # ✅ Force-clean column names (in case of whitespace)
 df.columns = df.columns.str.strip()
 
+# ✅ Ensure numeric again in case originals were strings
+df['Current Stock'] = pd.to_numeric(df['Current Stock'], errors='coerce')
+df['Reorder Level'] = pd.to_numeric(df['Reorder Level'], errors='coerce')
+
 # ✅ Calculate Needs Restock
-# Always run after final df is built
 if 'Needs Restock?' not in df.columns:
     if 'Current Stock' in df.columns and 'Reorder Level' in df.columns:
         df['Needs Restock?'] = df['Current Stock'] < df['Reorder Level']
