@@ -63,7 +63,12 @@ st.markdown(
 df = pd.read_sql('SELECT * FROM inventory', engine)
 
 # Optional CSV upload: add new rows to existing database data
-uploaded_file = st.sidebar.file_uploader("📁 Upload new inventory CSV (adds to existing)", type=["csv"])
+if lang == "日本語":
+    upload_label = "📁 新しいCSVファイルをアップロード（既存データに追加）"
+else:
+    upload_label = "📁 Upload new inventory CSV (adds to existing)"
+
+uploaded_file = st.sidebar.file_uploader(upload_label, type=["csv"])
 if uploaded_file is not None:
     try:
         df_new = pd.read_csv(uploaded_file)
