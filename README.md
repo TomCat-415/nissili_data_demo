@@ -82,16 +82,22 @@ streamlit run app.py
 - 📤 Real-time alerts via email or Slack when restock is needed
 - 🔐 Role-based access (admin vs viewer)
 - 📊 Monthly forecasting with linear regression
-- 📱 Mobile-first redesign for field sales teams
+- 📱 *Mobile-first* redesign for field sales teams
 
 I'd love to eventually connect this dashboard to a real backend (like Supabase or Firebase) and send out live Slack/email alerts to warehouse or sales staff. I'm also curious about integrating predictive restock analytics using simple ML models. This project was a great foundation, and I plan to evolve it into something even more real-world ready.
 
 ---
 
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
 ## 🤝 Contact
 
-Thomas Haruo Clinard
-[thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
-📍 Tokyo, Japan | 2025
+**Thomas Haruo Clinard**  
+📧 Email: <thomasharuo415@gmail.com>  
+📍 Tokyo, Japan | 2025  
 
-If you’re working on similar tools or need help with Streamlit dashboards, feel free to reach out.
+If you’re working on similar tools or want to chat Streamlit dashboards, feel free to reach out.
