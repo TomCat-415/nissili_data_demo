@@ -82,9 +82,9 @@ streamlit run app.py
 - 📤 Real-time alerts via email or Slack when restock is needed  
 - 🔐 Role-based access (admin vs viewer)  
 - 📊 Monthly forecasting with linear regression  
-- 📱 Mobile-first redesign for field sales teams  
+- 📱 Mobile-first redesign designed for field sales teams
 
-_I'd love to eventually connect this dashboard to a real backend (like Supabase or Firebase)._
+I'd love to eventually connect this dashboard to a real backend (like Supabase or Firebase).
 
 ---
 
@@ -97,7 +97,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## 🤝 Contact
 
 **Thomas Haruo Clinard**  
-📧 <thomasharuo415@gmail.com>  
+📧 [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
 📍 Tokyo, Japan · 2025  
 
 If you’re working on similar tools or want to chat Streamlit dashboards, feel free to reach out.
