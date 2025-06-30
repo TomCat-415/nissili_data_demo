@@ -38,9 +38,9 @@ NISSILI is a Japanese silicone trading company with multiple product lines and c
 
 ## 🖼️ Feature Previews
 
-| Dashboard Overview | Excel Download | Low Inventory | Simulated Email |
-|--------------------|--------------|----------------|------------------|
-| ![Dashboard showing KPIs, sidebar filters, and product sales chart](screenshots/dashboard_main.png) | ![Filtered inventory table with an Excel download button underneath](screenshots/excel_download.png) | ![Table highlighting low inventory items in red with restock flag](screenshots/low_inventory.png) | ![Preview of simulated email alert listing low-stock products](screenshots/email_alert.png) |
+| Dashboard Overview | Excel Download | Low Inventory | Simulated Email | CSV Upload |
+|--------------------|----------------|----------------|------------------|-------------|
+| ![Dashboard](assets/dashboard.gif) | ![Excel](assets/excel_download.gif) | ![Low Inventory](assets/low_inventory.gif) | ![Email](assets/simulated_email.gif) | ![CSV Upload Demo](assets/csv_upload_demo.gif) |
 
 ---
 
