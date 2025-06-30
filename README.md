@@ -24,14 +24,15 @@ NISSILI is a Japanese silicone trading company with multiple product lines and c
 
 ## 💡 Features
 
-- **🔀 Language Toggle**: Switch between Japanese and English seamlessly
-- **📈 Visual Analytics**: Bar charts, line graphs, and KPIs to monitor performance
-- **🔎 Advanced Filtering**: Filter data by client, product, or transaction month
-- **📋 Filtered & Full Tables**: View both scoped and complete inventory data
-- **📥 Download as Excel**: Export filtered data instantly in `.xlsx` format
-- **⚠️ Low Stock Alerts**: Auto-detects items below reorder levels
-- **📧 Simulated Email Notifications**: Preview of automated alerts for restock events
-- **🌐 Responsive UI**: Adapts to mobile and desktop, auto-matches the user’s system theme (dark or light)
+- 🌐 **Language Toggle**: Switch between Japanese and English seamlessly  
+- 📊 **Visual Analytics**: Bar charts, line graphs, and KPIs to monitor performance  
+- 🎯 **Advanced Filtering**: Filter data by client, product, or transaction month  
+- 🧾 **Filtered & Full Tables**: View both scoped and complete inventory data  
+- 📁 **CSV Upload (Additive)**: Upload new inventory CSVs via sidebar — new entries are merged with existing data in real time  
+- 📥 **Download as Excel**: Export filtered data instantly in `.xlsx` format  
+- ⚠️ **Low Stock Alerts**: Auto-detects items below reorder levels  
+- ✉️ **Simulated Email Notifications**: Preview of automated alerts for restock events  
+- 📱 **Responsive UI**: Adapts to mobile and desktop, auto-matches the user’s system theme (dark or light)
 
 ---
 
