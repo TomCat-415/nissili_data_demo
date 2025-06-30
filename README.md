@@ -73,6 +73,7 @@ git clone https://github.com/TomCat-415/nissili_data_demo.git
 cd nissili_data_demo
 pip install -r requirements.txt
 streamlit run app.py
+```
 
 ---
 
