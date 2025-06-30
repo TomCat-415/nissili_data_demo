@@ -7,6 +7,8 @@
 
 A bilingual (🇯🇵/🇺🇸) inventory and sales dashboard built with **Streamlit**, featuring real-time filtering, visual analytics, Excel export, and simulated email alerts for low stock. This tool empowers teams to track stock levels, detect sales trends, and take action—all without touching Excel.
 
+This project started as a proof-of-concept for how a bilingual inventory system could work for a company like NISSILI. I wanted to explore how far I could go using Python and Streamlit to build something clean, usable, and impactful — without relying on Excel or Google Sheets. I learned a lot about streamlining UX, data filtering, and simulating real-world alerts along the way.
+
 ---
 
 ## 🏢 Business Context
@@ -82,6 +84,8 @@ streamlit run app.py
 - 📊 Monthly forecasting with linear regression
 - 📱 Mobile-first redesign for field sales teams
 
+I'd love to eventually connect this dashboard to a real backend (like Supabase or Firebase) and send out live Slack/email alerts to warehouse or sales staff. I'm also curious about integrating predictive restock analytics using simple ML models. This project was a great foundation, and I plan to evolve it into something even more real-world ready.
+
 ---
 
 ## 🤝 Contact
@@ -89,3 +93,5 @@ streamlit run app.py
 Thomas Haruo Clinard
 [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
 📍 Tokyo, Japan | 2025
+
+If you’re working on similar tools or need help with Streamlit dashboards, feel free to reach out.
