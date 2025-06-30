@@ -1,6 +1,9 @@
 # 📦 NISSILI Inventory & Sales Dashboard
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://nissili-demo-dashboard.streamlit.app/)
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
+![Streamlit](https://img.shields.io/badge/Built_with-Streamlit-FF4B4B?logo=streamlit)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 A bilingual (🇯🇵/🇺🇸) inventory and sales dashboard built with **Streamlit**, featuring real-time filtering, visual analytics, Excel export, and simulated email alerts for low stock. This tool empowers teams to track stock levels, detect sales trends, and take action—all without touching Excel.
 
@@ -68,6 +71,16 @@ git clone https://github.com/TomCat-415/nissili_data_demo.git
 cd nissili_data_demo
 pip install -r requirements.txt
 streamlit run app.py
+
+---
+
+## 📈 Future Enhancements
+
+- 🔗 Backend automation using Supabase or Zapier
+- 📤 Real-time alerts via email or Slack when restock is needed
+- 🔐 Role-based access (admin vs viewer)
+- 📊 Monthly forecasting with linear regression
+- 📱 Mobile-first redesign for field sales teams
 
 ---
 
