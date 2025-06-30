@@ -89,6 +89,8 @@ if 'Needs Restock?' not in df.columns:
     else:
         st.warning("Missing 'Current Stock' or 'Reorder Level' column – cannot compute restock status.")
 
+st.write("Sample rows after restock logic:", df.tail(3))
+
 # --- Language-Based Column Mapping ---
 # Display different columns/labels based on JP or EN
 if lang == "日本語":
