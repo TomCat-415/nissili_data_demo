@@ -77,7 +77,7 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"CSV Upload Error: {e}")
 
-        # Automatically determine restock status if 'Needs Restock?' column is missing
+# ✅ Restock logic: always run after full df is built
 if 'Needs Restock?' not in df.columns:
     df['Needs Restock?'] = df['Current Stock'] < df['Reorder Level']
     df['Needs Restock?'] = df['Needs Restock?'].apply(lambda x: 'Yes' if x else 'No')
