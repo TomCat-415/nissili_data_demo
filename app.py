@@ -62,11 +62,6 @@ st.markdown(
 # --- Load Data From Database ---
 df = pd.read_sql('SELECT * FROM inventory', engine)
 
-# Automatically determine restock status if 'Needs Restock?' column is missing
-if 'Needs Restock?' not in df.columns:
-    df['Needs Restock?'] = df['Current Stock'] < df['Reorder Level']
-    df['Needs Restock?'] = df['Needs Restock?'].apply(lambda x: 'Yes' if x else 'No')
-
 # Optional CSV upload: add new rows to existing database data
 if lang == "日本語":
     upload_label = "📁 新しいCSVファイルをアップロード（既存データに追加）"
@@ -81,6 +76,11 @@ if uploaded_file is not None:
         st.success("CSV uploaded and data added to dashboard.")
     except Exception as e:
         st.error(f"CSV Upload Error: {e}")
+
+        # Automatically determine restock status if 'Needs Restock?' column is missing
+if 'Needs Restock?' not in df.columns:
+    df['Needs Restock?'] = df['Current Stock'] < df['Reorder Level']
+    df['Needs Restock?'] = df['Needs Restock?'].apply(lambda x: 'Yes' if x else 'No')
 
 # --- Language-Based Column Mapping ---
 # Display different columns/labels based on JP or EN
