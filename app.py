@@ -100,53 +100,55 @@ df_display = df[display_cols].rename(columns=rename_cols)
 if lang == "日本語":
     with st.expander("ℹ️ ダッシュボードの使い方", expanded=False):
         st.markdown("""
-        **NISSILI 在庫・販売ダッシュボードへようこそ！**
+**NISSILI 在庫・販売ダッシュボードへようこそ！**
 
-        - **言語切り替え:** 上部のボタンで日本語と英語を切り替えできます。
-        - **KPI:** 売上合計、販売数量、要補充件数、取引先数を一目で確認。
-        - **チャート:** 製品別販売数や月別トレンドがすぐに分かります。
-        - **要補充リスト:** 赤字で表示されている在庫は至急対応が必要です。
-        - **全在庫リスト:** 最新の在庫・販売データを検索・並べ替えできます。
+- **言語切り替え:** 上部のボタンで日本語と英語を切り替えできます。
+- **サイドバーのフィルター:** 取引先、製品、月別にデータを絞り込み可能。
+- **KPI:** 売上合計、販売数量、要補充件数、取引先数を一目で確認。
+- **チャート:** 製品別販売数や月別トレンドがすぐに分かります。
+- **要補充リスト:** 赤字で表示されている在庫は至急対応が必要です。
+- **全在庫リスト:** 最新の在庫・販売データを検索・並べ替えできます。
 
-        **想定利用者:**  
-        - マネージャー、営業、物流担当者
+**想定利用者:**  
+- マネージャー、営業、物流担当者
 
-        **データ更新:**  
-        - 新しいデータがアップロードされるたび自動更新されます。
+**データ更新:**  
+- 新しいデータがアップロードされるたび自動更新されます。
 
-        **サポート・お問い合わせ:**  
-        - メール: [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
+**サポート・お問い合わせ:**  
+- メール: [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
 
-        **更新履歴:**  
-        - 最終更新日: 2025年6月
+**更新履歴:**  
+- 最終更新日: 2025年6月
 
-        _ご不明点はデータ担当までご連絡ください。_
-        """)
+_ご不明点はデータ担当までご連絡ください。_
+""")
 else:
     with st.expander("ℹ️ About / How to Use This Dashboard", expanded=False):
         st.markdown("""
-        **Welcome to the NISSILI Inventory & Sales Dashboard!**
+**Welcome to the NISSILI Inventory & Sales Dashboard!**
 
-        - **Language Toggle:** Use the button above to switch between Japanese and English.
-        - **KPIs:** See total revenue, units sold, clients, and items needing restock at a glance.
-        - **Charts:** Visualize sales volume and trends to spot what’s selling and when.
-        - **Low Inventory:** Instantly see which items need urgent attention (highlighted in red).
-        - **Full Inventory Table:** Browse, sort, or search the latest inventory and sales records.
+- **Language Toggle:** Use the button above to switch between Japanese and English.
+- **Sidebar Filters:** Narrow data by client, product, or transaction month in the left panel.
+- **KPIs:** See total revenue, units sold, clients, and items needing restock at a glance.
+- **Charts:** Visualize sales volume and trends to spot what’s selling and when.
+- **Low Inventory:** Instantly see which items need urgent attention (highlighted in red).
+- **Full Inventory Table:** Browse, sort, or search the latest inventory and sales records.
 
-        **Who is this for?**  
-        - Managers, sales staff, and logistics teams who want clear, up-to-date info with zero Excel headaches.
+**Who is this for?**  
+- Managers, sales staff, and logistics teams who want clear, up-to-date info with zero Excel headaches.
 
-        **How is it updated?**  
-        - Whenever new inventory or sales data is uploaded, the dashboard refreshes automatically.
+**How is it updated?**  
+- Whenever new inventory or sales data is uploaded, the dashboard refreshes automatically.
 
-        **Support / Contact:**  
-        - Email: [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
+**Support / Contact:**  
+- Email: [thomasharuo415@gmail.com](mailto:thomasharuo415@gmail.com)
 
-        **Changelog:**  
-        - Last updated: June 2025
+**Changelog:**  
+- Last updated: June 2025
 
-        _Questions or need help? Ping your data team!_
-        """)
+_Questions or need help? Ping your data team!_
+""")
 
         # --- Get unique values for filters ---
 if lang == "日本語":
